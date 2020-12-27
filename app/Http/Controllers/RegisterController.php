@@ -38,6 +38,10 @@ class RegisterController extends Controller
                 'error' => $validator->getMessageBag()->all()]
             );
         }
-        return response()->json(User::create($fields));
+        return response()->json(User::create([
+            'name'  => $fields['name'],
+            'email' => $fields['email'],
+            'password' => Hash::make($fields['password']),
+        ]));
     }
 }
