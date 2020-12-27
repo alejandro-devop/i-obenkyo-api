@@ -4,6 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\HabitCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,6 +25,15 @@ Route::group(['prefix' => 'auth'], function () {
     });
 });
 
+Route::group(['middleware' => 'auth:api'], function () {
+    Route::group(['prefix' => 'habits'],  function () {
+        Route::get('/categories',  [HabitCategoryController::class, 'index']);
+        Route::post('/categories', [HabitCategoryController::class, 'store']);
+        Route::patch('/categories/{habitCategory}', [HabitCategoryController::class, 'update']);
+        Route::delete('/categories/{habitCategory}', [HabitCategoryController::class, 'destroy']);
+    });
+});
+
 Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+
 });
