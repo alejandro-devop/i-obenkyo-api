@@ -19,7 +19,7 @@ class CreateHabitFollowUpsTable extends Migration
                 ->references('id')
                 ->on('habits');
             $table->dateTime('apply_date');
-            $table->text('story');
+            $table->text('story')->nullable();
             $table->timestamps();
         });
     }

@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5e28c2b5-e07b-45e7-8c6c-432c35667687" name="Default Changelist" comment="">
+    <list default="true" id="5e28c2b5-e07b-45e7-8c6c-432c35667687" name="Default Changelist" comment="Added crud for  habits">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Exceptions/Handler.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Exceptions/Handler.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/Habit.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Habit.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_27_222852_create_habits_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_12_27_222852_create_habits_table.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/DatabaseSeeder.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/database/seeders/UserSeeder.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/seeders/UserSeeder.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/HabitFollowUp.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/HabitFollowUp.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2020_12_27_223347_create_habit_follow_ups_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2020_12_27_223347_create_habit_follow_ups_table.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -184,8 +181,37 @@
       <updated>1609094659390</updated>
       <workItem from="1609094661437" duration="949000" />
       <workItem from="1609096891402" duration="1904000" />
-      <workItem from="1609099141815" duration="14817000" />
+      <workItem from="1609099141815" duration="17896000" />
     </task>
+    <task id="LOCAL-00001" summary="Fixed nullable fields">
+      <created>1609120636853</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1609120636853</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Added Seeder for categories and   users">
+      <created>1609120672382</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1609120672382</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Added crud for  habits">
+      <created>1609120697191</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1609120697191</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Added crud for  habits">
+      <created>1609120709508</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1609120709508</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -202,5 +228,11 @@
       </map>
     </option>
     <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Fixed nullable fields" />
+    <MESSAGE value="Added Seeder for categories and   users" />
+    <MESSAGE value="Added crud for  habits" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added crud for  habits" />
   </component>
 </project>
