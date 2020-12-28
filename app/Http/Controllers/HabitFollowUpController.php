@@ -41,6 +41,7 @@ class HabitFollowUpController extends Controller
         $response = [
             'title'     => $habit->title,
             'id'        => $habit->id,
+            'is_counter'=> boolval($habit->is_counter),
             'streak'    => $habit->streak_count,
             'goal'      => $habit->streak_goal,
             'max'       => $habit->max_streak,
