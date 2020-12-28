@@ -16,10 +16,10 @@ class CreateHabitsTable extends Migration
         Schema::create('habits', function (Blueprint $table) {
             $table->id();
             $table->string('title', 255);
-            $table->text('description');
+            $table->text('description')->nullable();
             $table->dateTime('start');
             $table->dateTime('goal_date');
-            $table->integer('streak_count');
+            $table->integer('streak_count')->default(0)->nullable();
             $table->integer('streak_goal');
             $table->foreignId('category_id')
                 ->references('id')
