@@ -29,6 +29,7 @@ class HabitFollowUpController extends Controller
         foreach ($followUps as $followUp) {
             $date = Carbon::parse($followUp->apply_date);
             $followUpDays[] = [
+                'id'            => $followUp->id,
                 'date'          => $date->format('Y-m-d'),
                 'completed'     => boolval($followUp->accomplished),
                 'counter'       => $followUp->counter,
@@ -39,6 +40,7 @@ class HabitFollowUpController extends Controller
         }
         $response = [
             'title'     => $habit->title,
+            'id'        => $habit->id,
             'streak'    => $habit->streak_count,
             'goal'      => $habit->streak_goal,
             'max'       => $habit->max_streak,

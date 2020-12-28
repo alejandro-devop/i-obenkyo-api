@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 /**
  * Class HabitFollowUp
  * @package App\Models
+ * @property numeric id
  * @property numeric habit_id
  * @property boolean accomplished
  * @property string apply_date
