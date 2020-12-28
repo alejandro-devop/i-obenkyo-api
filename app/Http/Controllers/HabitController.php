@@ -24,6 +24,8 @@ class HabitController extends Controller
             'title'         => ['required', 'string', 'max:255'],
             'description'   => ['string'],
             'start'         => ['required', 'date'],
+            'should_keep'   => ['boolean'],
+            'should_avoid'  => ['boolean'],
             'goal_date'     => ['required', 'date', 'after:start_date'],
             'streak_goal'   => ['required', 'numeric',  'gte:7'],
             'category'      => ['required', 'numeric'],
