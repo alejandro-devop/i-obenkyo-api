@@ -38,6 +38,7 @@ class HabitFollowUpController extends Controller
             ];
         }
         $response = [
+            'title'     => $habit->title,
             'streak'    => $habit->streak_count,
             'goal'      => $habit->streak_goal,
             'max'       => $habit->max_streak,

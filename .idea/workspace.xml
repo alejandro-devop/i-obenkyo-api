@@ -4,7 +4,6 @@
     <list default="true" id="5e28c2b5-e07b-45e7-8c6c-432c35667687" name="Default Changelist" comment="Added crud for  habits">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HabitFollowUpController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HabitFollowUpController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/Habit.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Habit.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -179,7 +178,7 @@
       <updated>1609094659390</updated>
       <workItem from="1609094661437" duration="949000" />
       <workItem from="1609096891402" duration="1904000" />
-      <workItem from="1609099141815" duration="29099000" />
+      <workItem from="1609099141815" duration="30632000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed nullable fields">
       <created>1609120636853</created>
