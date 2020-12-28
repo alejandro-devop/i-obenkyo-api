@@ -15,6 +15,7 @@ class HabitFollowUpController extends Controller
         return Validator::make($data, [
             'apply_date'    => ['required', 'date'],
             'story'         => ['string'],
+            'counter'       => ['numeric'],
             'remove'        => ['boolean'],
             'accomplished'  => ['boolean'],
         ]);
@@ -31,30 +32,63 @@ class HabitFollowUpController extends Controller
         $fields = $validator->validate();
         $applyDate = Carbon::parse($fields['apply_date']);
         $dayFollowUp = HabitFollowUp::where('apply_date', $applyDate)->first();
+        $isRemoving = isset($fields['remove']) && $fields['remove'] === true;
+        $isUpdating = isset($fields['update']) && $fields['update'] === true;
 
-        if (!is_null($dayFollowUp) && isset($fields['remove']) && $fields['remove'] === true) {
+        if (!is_null($dayFollowUp) && $isRemoving) {
             # If the follow up will be remove
-            if ($dayFollowUp->accomplished) {
-                $counter = $habit->streak_count - 1;
-                $habit->streak_count = $counter;
-                $habit->save();
-            }
-            $dayFollowUp->delete();
-            return response()->json(['removed' => true], 201);
+            return $this->removeFollowUp($habit, $dayFollowUp);
+        } else if (!is_null($dayFollowUp) && $isUpdating) {
+            return $this->updateFollowUp($habit, $dayFollowUp, $fields);
         } else if (is_null($dayFollowUp)) {
             # If it's a new follow up
-            if (isset($fields['accomplished']) && $fields['accomplished'] === true) {
-                $counter = $habit->streak_count + 1;
-                $habit->streak_count = $counter;
-                $habit->max_streak = $counter > $habit->max_streak? $counter : $habit->max_streak;
-            } else {
-                $habit->streak_count = 0;
-            }
-            $habit->save();
-            $followUp = $habit->followUps()->save(new HabitFollowUp($fields));
-            return response()->json($followUp);
+            return $this->createFollowUp($habit, $fields);
         } else {
             return response()->json(null, 204);
         }
+    }
+
+    private function removeFollowUp (Habit $habit, HabitFollowUp $habitFollowUp)
+    {
+        if ($habitFollowUp->accomplished) {
+            $counter = $habit->streak_count - 1;
+            $habit->streak_count = $counter;
+            $habit->save();
+        }
+        $habitFollowUp->delete();
+        return response()->json(['removed' => true], 201);
+    }
+
+    private function increaseHabitCounter (Habit &$habit) {
+        $counter = $habit->streak_count + 1;
+        $habit->streak_count = $counter;
+        $habit->max_streak = $counter > $habit->max_streak? $counter : $habit->max_streak;
+    }
+
+    private function createFollowUp($habit, $fields)
+    {
+        if (isset($fields['accomplished']) && $fields['accomplished'] === true) {
+            $this->increaseHabitCounter($habit);
+        } else {
+            $habit->streak_count = 0;
+        }
+        $habit->save();
+        $followUp = new HabitFollowUp($fields);
+        $followUp->is_counter = $habit->is_counter;
+        $followUp->counter_goal = $habit->counter_goal;
+        $habit->followUps()->save($followUp);
+        return response()->json($followUp);
+    }
+
+    private function updateFollowUp(Habit $habit, HabitFollowUp $habitFollowUp, $fields)
+    {
+        $habitFollowUp->counter = isset($fields['counter'])? $fields['counter'] : $habitFollowUp->counter;
+        if ($habitFollowUp->counter >= $habitFollowUp->counter_goal) {
+            $this->increaseHabitCounter($habit);
+            $habitFollowUp->accomplished = true;
+        }
+        $habit->save();
+        $habitFollowUp->update();
+        return response()->json($habitFollowUp);
     }
 }

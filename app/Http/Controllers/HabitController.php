@@ -23,6 +23,8 @@ class HabitController extends Controller
         return Validator::make($data, [
             'title'         => ['required', 'string', 'max:255'],
             'description'   => ['string'],
+            'is_counter'    => ['boolean'],
+            'counter_goal'  => ['numeric'],
             'start'         => ['required', 'date'],
             'should_keep'   => ['boolean'],
             'should_avoid'  => ['boolean'],

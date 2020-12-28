@@ -10,6 +10,9 @@ class HabitFollowUp extends Model
     protected $fillable = [
         'accomplished',
         'apply_date',
+        'is_counter',
+        'counter',
+        'counter_goal',
         'story',
     ];
     use HasFactory;
