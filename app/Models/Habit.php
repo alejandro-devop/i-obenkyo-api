@@ -10,6 +10,7 @@ use App\Models\HabitFollowUp;
 /**
  * Class Habit
  * @package App\Models
+ * @property numeric id
  * @property string title           A title for the habit
  * @property string description     A text which describes why to track the habit
  * @property string start           The date the habit track starts

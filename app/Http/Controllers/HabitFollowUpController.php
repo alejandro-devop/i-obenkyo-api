@@ -17,6 +17,7 @@ class HabitFollowUpController extends Controller
             'story'         => ['string'],
             'counter'       => ['numeric'],
             'remove'        => ['boolean'],
+            'update'        => ['boolean'],
             'accomplished'  => ['boolean'],
         ]);
     }
@@ -31,10 +32,9 @@ class HabitFollowUpController extends Controller
         $validator =  $this->validator($request->all());
         $fields = $validator->validate();
         $applyDate = Carbon::parse($fields['apply_date']);
-        $dayFollowUp = HabitFollowUp::where('apply_date', $applyDate)->first();
+        $dayFollowUp = HabitFollowUp::where('apply_date', $applyDate)->where('habit_id', $habit->id)->first();
         $isRemoving = isset($fields['remove']) && $fields['remove'] === true;
         $isUpdating = isset($fields['update']) && $fields['update'] === true;
-
         if (!is_null($dayFollowUp) && $isRemoving) {
             # If the follow up will be remove
             return $this->removeFollowUp($habit, $dayFollowUp);
@@ -65,11 +65,14 @@ class HabitFollowUpController extends Controller
         $habit->max_streak = $counter > $habit->max_streak? $counter : $habit->max_streak;
     }
 
-    private function createFollowUp($habit, $fields)
+    private function createFollowUp(Habit $habit, $fields)
     {
-        if (isset($fields['accomplished']) && $fields['accomplished'] === true) {
+        $isAccomplished = isset($fields['accomplished']) && $fields['accomplished'] === true;
+        $isCounter = boolval($habit->is_counter);
+        $isCounterComplete = isset($fields['counter']) && $fields['counter'] >= $habit->counter_goal;
+        if ($isAccomplished || ($isCounter && $isCounterComplete)) {
             $this->increaseHabitCounter($habit);
-        } else {
+        } else if (!$isCounter) {
             $habit->streak_count = 0;
         }
         $habit->save();
@@ -83,7 +86,7 @@ class HabitFollowUpController extends Controller
     private function updateFollowUp(Habit $habit, HabitFollowUp $habitFollowUp, $fields)
     {
         $habitFollowUp->counter = isset($fields['counter'])? $fields['counter'] : $habitFollowUp->counter;
-        if ($habitFollowUp->counter >= $habitFollowUp->counter_goal) {
+        if ($habitFollowUp->counter >= $habitFollowUp->counter_goal && !boolval($habitFollowUp->accomplished)) {
             $this->increaseHabitCounter($habit);
             $habitFollowUp->accomplished = true;
         }

@@ -5,6 +5,17 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class HabitFollowUp
+ * @package App\Models
+ * @property numeric habit_id
+ * @property boolean accomplished
+ * @property string apply_date
+ * @property boolean is_counter
+ * @property numeric counter
+ * @property numeric counter_goal
+ * @property string story
+ */
 class HabitFollowUp extends Model
 {
     protected $fillable = [
