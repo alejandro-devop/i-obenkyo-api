@@ -23,4 +23,9 @@ class Habit extends Model
     {
         return $this->hasMany(HabitFollowUp::class);
     }
+
+    public function getFollowUps()
+    {
+        return $this->followUps()->orderBy('apply_date', 'ASC')->get();
+    }
 }

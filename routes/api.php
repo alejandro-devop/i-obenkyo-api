@@ -31,7 +31,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::group(['prefix' => 'habits'],  function () {
         Route::get('/', [HabitController::class,  'index']);
         Route::post('/', [HabitController::class,  'store']);
-        Route::post('/follow-up/{habit}', [HabitFollowUpController::class, 'followUp']);
+        Route::post('/follow-up/{habit}', [HabitFollowUpController::class, 'followUpMark']);
+        Route::get('/follow-up/{habit}', [HabitFollowUpController::class, 'followUpList']);
         Route::patch('/{habit}', [HabitController::class,  'update']);
         Route::delete('/{habit}', [HabitController::class,  'destroy']);
         Route::get('/categories',  [HabitCategoryController::class, 'index']);

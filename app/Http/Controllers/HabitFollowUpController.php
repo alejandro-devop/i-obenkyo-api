@@ -19,7 +19,12 @@ class HabitFollowUpController extends Controller
         ]);
     }
 
-    public function followUp(Request $request, Habit $habit)
+    public function followUpList(Habit $habit)
+    {
+        return $habit->getFollowUps();
+    }
+
+    public function followUpMark(Request $request, Habit $habit)
     {
         $validator =  $this->validator($request->all());
         $fields = $validator->validate();
