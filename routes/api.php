@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HabitCategoryController;
+use  App\Http\Controllers\HabitController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +28,10 @@ Route::group(['prefix' => 'auth'], function () {
 
 Route::group(['middleware' => 'auth:api'], function () {
     Route::group(['prefix' => 'habits'],  function () {
+        Route::get('/', [HabitController::class,  'index']);
+        Route::post('/', [HabitController::class,  'store']);
+        Route::patch('/{habit}', [HabitController::class,  'update']);
+        Route::delete('/{habit}', [HabitController::class,  'destroy']);
         Route::get('/categories',  [HabitCategoryController::class, 'index']);
         Route::post('/categories', [HabitCategoryController::class, 'store']);
         Route::patch('/categories/{habitCategory}', [HabitCategoryController::class, 'update']);

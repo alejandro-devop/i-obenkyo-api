@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\HabitCategory;
+use App\Models\Habit;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -46,5 +47,18 @@ class User extends Authenticatable
     public function habitCategories()
     {
         return $this->hasMany(HabitCategory::class);
+    }
+
+    public function habits()
+    {
+        return $this->hasMany(Habit::class);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|Habit[]
+     */
+    public function getHabits()
+    {
+        return $this->habits()->get();
     }
 }
