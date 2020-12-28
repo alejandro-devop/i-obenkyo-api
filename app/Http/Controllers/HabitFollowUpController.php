@@ -24,7 +24,28 @@ class HabitFollowUpController extends Controller
 
     public function followUpList(Habit $habit)
     {
-        return $habit->getFollowUps();
+        $followUps = $habit->getFollowUps();
+        $followUpDays = [];
+        foreach ($followUps as $followUp) {
+            $date = Carbon::parse($followUp->apply_date);
+            $followUpDays[] = [
+                'date'          => $date->format('Y-m-d'),
+                'completed'     => boolval($followUp->accomplished),
+                'counter'       => $followUp->counter,
+                'is_counter'    => $followUp->is_counter,
+                'counter_goal'  => $followUp->counter_goal,
+                'story'         => $followUp->story,
+            ];
+        }
+        $response = [
+            'streak'    => $habit->streak_count,
+            'goal'      => $habit->streak_goal,
+            'max'       => $habit->max_streak,
+            'stated'    => $habit->start,
+            'ends'      => $habit->goal_date,
+            'days'      => $followUpDays,
+        ];
+        return response()->json($response);
     }
 
     public function followUpMark(Request $request, Habit $habit)

@@ -51,6 +51,9 @@ class Habit extends Model
         return $this->hasMany(HabitFollowUp::class);
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Collection|\App\Models\HabitFollowUp[]
+     */
     public function getFollowUps()
     {
         return $this->followUps()->orderBy('apply_date', 'ASC')->get();
