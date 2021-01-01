@@ -7,6 +7,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\HabitCategoryController;
 use App\Http\Controllers\HabitController;
 use App\Http\Controllers\HabitFollowUpController;
+use App\Http\Controllers\ApiTestController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,14 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::patch('/categories/{habitCategory}', [HabitCategoryController::class, 'update']);
         Route::delete('/categories/{habitCategory}', [HabitCategoryController::class, 'destroy']);
     });
+});
+
+Route::group(['prefix' => 'test'], function () {
+    Route::get('/check', [ApiTestController::class, 'checkGet']);
+    Route::post('/check', [ApiTestController::class, 'checkPost']);
+    Route::put('/check', [ApiTestController::class, 'checkPut']);
+    Route::patch('/check', [ApiTestController::class, 'checkPatch']);
+    Route::delete('/check', [ApiTestController::class, 'checkDelete']);
 });
 
 Route::middleware('auth:api')->get('/user', function (Request $request) {
