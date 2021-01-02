@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\User;
 use App\Models\HabitFollowUp;
+use App\Models\HabitCategory;
 
 /**
  * Class Habit
@@ -44,6 +45,11 @@ class Habit extends Model
     public function user()
     {
         return $this->belongsTo(User::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(HabitCategory::class);
     }
 
     public function followUps()

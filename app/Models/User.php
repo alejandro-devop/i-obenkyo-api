@@ -59,6 +59,6 @@ class User extends Authenticatable
      */
     public function getHabits()
     {
-        return $this->habits()->get();
+        return $this->habits()->with('category')->get();
     }
 }
