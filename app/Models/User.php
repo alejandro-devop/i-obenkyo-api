@@ -8,6 +8,7 @@ use App\Models\Habit;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Carbon;
 use Laravel\Passport\HasApiTokens;
 
 class User extends Authenticatable
@@ -54,11 +55,22 @@ class User extends Authenticatable
         return $this->hasMany(Habit::class);
     }
 
+    public function followUps()
+    {
+        return $this->hasMany(HabitFollowUp::class);
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Collection|Habit[]
      */
     public function getHabits()
     {
-        return $this->habits()->with('category')->get();
+        return $this->habits()->with('category')->with('followUps')->get();
+    }
+
+    public function getHabitsWithFollow($date)
+    {
+        $dateToFilter = Carbon::parse($date);
+        return $this->habits()->with('followUps')->get();
     }
 }

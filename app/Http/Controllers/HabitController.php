@@ -42,7 +42,8 @@ class HabitController extends Controller
         $category = HabitCategory::findOrFail($fields['category']);
         $fields['category_id'] = $category->id;
         $fields['streak_count'] = 0;
-        $habit = $user->habits()->save(new Habit($fields));
+        $habitSaved = $user->habits()->save(new Habit($fields));
+        $habit = Habit::with('category')->with('followUps')->where('id', $habitSaved->id)->first();
         return response()->json($habit);
     }
 
