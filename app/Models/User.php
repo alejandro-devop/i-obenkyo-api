@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use App\Models\HabitCategory;
 use App\Models\Habit;
+use App\Models\FrequencyType;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -72,5 +73,10 @@ class User extends Authenticatable
     {
         $dateToFilter = Carbon::parse($date);
         return $this->habits()->with('followUps')->get();
+    }
+
+    public function frequencies()
+    {
+        return $this->hasMany(FrequencyType::class);
     }
 }

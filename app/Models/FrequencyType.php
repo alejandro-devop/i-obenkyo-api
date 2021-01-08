@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class FrequencyType extends Model
 {
     use HasFactory;
+    protected $fillable = ['name', 'days', 'is_daily', 'is_weekly', 'is_monthly', 'is_every_year'];
 }
