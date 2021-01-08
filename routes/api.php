@@ -8,6 +8,7 @@ use App\Http\Controllers\HabitCategoryController;
 use App\Http\Controllers\HabitController;
 use App\Http\Controllers\HabitFollowUpController;
 use App\Http\Controllers\ApiTestController;
+use App\Http\Controllers\FrequencyController;
 
 /*
 |--------------------------------------------------------------------------
@@ -41,7 +42,12 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::patch('/categories/{habitCategory}', [HabitCategoryController::class, 'update']);
         Route::delete('/categories/{habitCategory}', [HabitCategoryController::class, 'destroy']);
     });
+
+    Route::group(['prefix' => 'settings/frequencies'], function () {
+        Route::get('/', [FrequencyController::class, 'index']);
+    });
 });
+
 
 Route::group(['prefix' => 'test'], function () {
     Route::get('/check', [ApiTestController::class, 'checkGet']);

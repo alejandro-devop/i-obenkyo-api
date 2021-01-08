@@ -79,4 +79,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(FrequencyType::class);
     }
+
+    public function getFrequencies()
+    {
+        return $this->frequencies()->get();
+    }
 }
