@@ -45,6 +45,9 @@ Route::group(['middleware' => 'auth:api'], function () {
 
     Route::group(['prefix' => 'settings/frequencies'], function () {
         Route::get('/', [FrequencyController::class, 'index']);
+        Route::post('/', [FrequencyController::class, 'store']);
+        Route::patch('/{record}', [FrequencyController::class, 'update']);
+        Route::delete('/{record}', [FrequencyController::class, 'destroy']);
     });
 });
 
