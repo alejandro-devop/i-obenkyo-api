@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="5e28c2b5-e07b-45e7-8c6c-432c35667687" name="Default Changelist" comment="Added crud for  habits">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/database/migrations/2021_01_08_224027_create_bills_table.php" beforeDir="false" afterPath="$PROJECT_DIR$/database/migrations/2021_01_08_224027_create_bills_table.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -185,7 +186,7 @@
       <workItem from="1609586277560" duration="323000" />
       <workItem from="1609892655419" duration="227000" />
       <workItem from="1609942755678" duration="495000" />
-      <workItem from="1610143189828" duration="1041000" />
+      <workItem from="1610143189828" duration="1319000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed nullable fields">
       <created>1609120636853</created>
