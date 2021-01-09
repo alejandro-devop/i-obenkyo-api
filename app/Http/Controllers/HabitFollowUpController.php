@@ -121,8 +121,8 @@ class HabitFollowUpController extends Controller
         $followUp = new HabitFollowUp($fields);
         $followUp->is_counter = $habit->is_counter;
         $followUp->counter_goal = $habit->counter_goal;
-        $habit->followUps()->save($followUp);
-        return response()->json($followUp);
+        $savedFollowUp = $habit->followUps()->save($followUp);
+        return response()->json($savedFollowUp);
     }
 
     private function updateFollowUp(Habit $habit, HabitFollowUp $habitFollowUp, $fields)
