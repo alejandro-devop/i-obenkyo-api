@@ -127,11 +127,14 @@ class HabitFollowUpController extends Controller
 
     private function updateFollowUp(Habit $habit, HabitFollowUp $habitFollowUp, $fields)
     {
+        $oldCounter = $habitFollowUp->counter;
         $habitFollowUp->counter = isset($fields['counter'])? $fields['counter'] : $habitFollowUp->counter;
         if (boolval($habit->is_counter) && $habitFollowUp->counter >= $habitFollowUp->counter_goal && !boolval($habitFollowUp->accomplished)) {
             $this->increaseHabitCounter($habit);
             $habitFollowUp->accomplished = true;
             $habitFollowUp->update();
+        } else if (boolval($habit->is_counter) && $habitFollowUp->counter > $oldCounter) {
+            $habitFollowUp->update($fields);
         } else if (!boolval($habit->is_counter)) {
             $habitFollowUp->update($fields);
         }

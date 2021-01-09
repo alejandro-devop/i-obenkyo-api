@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5e28c2b5-e07b-45e7-8c6c-432c35667687" name="Default Changelist" comment="Added crud for  habits">
-      <change afterPath="$PROJECT_DIR$/api-docs/Habits.MD" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Http/Controllers/HabitFollowUpController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/HabitFollowUpController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Models/HabitFollowUp.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/HabitFollowUp.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -189,7 +186,8 @@
       <workItem from="1609586277560" duration="323000" />
       <workItem from="1609892655419" duration="227000" />
       <workItem from="1609942755678" duration="495000" />
-      <workItem from="1610143189828" duration="9581000" />
+      <workItem from="1610143189828" duration="9933000" />
+      <workItem from="1610172901811" duration="391000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed nullable fields">
       <created>1609120636853</created>
