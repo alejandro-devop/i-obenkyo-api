@@ -28,4 +28,9 @@ class HabitFollowUp extends Model
         'story',
     ];
     use HasFactory;
+
+    public function habit()
+    {
+        return $this->belongsTo(Habit::class);
+    }
 }

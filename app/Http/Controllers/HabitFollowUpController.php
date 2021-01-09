@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Habit;
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\HabitFollowUp;
 use Illuminate\Support\Carbon;
@@ -74,6 +75,21 @@ class HabitFollowUpController extends Controller
         }
     }
 
+    public function dailyFollowUp(Request $request, $dateStr)
+    {
+        $date = Carbon::parse($dateStr);
+        $user = $request->user()?: new User;
+        $followUps = HabitFollowUp::where(
+            'apply_date',
+            $date->format('Y-m-d'))
+            ->with('habit')
+            ->whereHas('habit', function ($q) use($user) {
+                $q->where('user_id', $user->id);
+            })
+            ->get();
+        return response()->json($followUps);
+    }
+
     private function removeFollowUp (Habit $habit, HabitFollowUp $habitFollowUp)
     {
         if ($habitFollowUp->accomplished) {
@@ -112,12 +128,14 @@ class HabitFollowUpController extends Controller
     private function updateFollowUp(Habit $habit, HabitFollowUp $habitFollowUp, $fields)
     {
         $habitFollowUp->counter = isset($fields['counter'])? $fields['counter'] : $habitFollowUp->counter;
-        if ($habitFollowUp->counter >= $habitFollowUp->counter_goal && !boolval($habitFollowUp->accomplished)) {
+        if (boolval($habit->is_counter) && $habitFollowUp->counter >= $habitFollowUp->counter_goal && !boolval($habitFollowUp->accomplished)) {
             $this->increaseHabitCounter($habit);
             $habitFollowUp->accomplished = true;
+            $habitFollowUp->update();
+        } else if (!boolval($habit->is_counter)) {
+            $habitFollowUp->update($fields);
         }
         $habit->save();
-        $habitFollowUp->update();
         return response()->json($habitFollowUp);
     }
 }

@@ -33,6 +33,7 @@ Route::group(['prefix' => 'auth'], function () {
 Route::group(['middleware' => 'auth:api'], function () {
     Route::group(['prefix' => 'habits'],  function () {
         Route::get('/', [HabitController::class,  'index']);
+        Route::get('/daily-follow-up/{dateStr}', [HabitFollowUpController::class, 'dailyFollowUp']);
         Route::post('/', [HabitController::class,  'store']);
         Route::post('/follow-up/{habit}', [HabitFollowUpController::class, 'followUpMark']);
         Route::get('/follow-up/{habit}', [HabitFollowUpController::class, 'followUpList']);
