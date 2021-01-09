@@ -2,10 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="5e28c2b5-e07b-45e7-8c6c-432c35667687" name="Default Changelist" comment="Added crud for  habits">
+      <change afterPath="$PROJECT_DIR$/api-docs/Bills.MD" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api-docs/Frequencies.MD" beforeDir="false" afterPath="$PROJECT_DIR$/api-docs/Frequencies.MD" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/Http/Controllers/FrequencyController.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Http/Controllers/FrequencyController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/Bill.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/Bill.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/Models/FrequencyType.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/FrequencyType.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/Models/User.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/Models/User.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/routes/api.php" beforeDir="false" afterPath="$PROJECT_DIR$/routes/api.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -189,7 +190,7 @@
       <workItem from="1609586277560" duration="323000" />
       <workItem from="1609892655419" duration="227000" />
       <workItem from="1609942755678" duration="495000" />
-      <workItem from="1610143189828" duration="3752000" />
+      <workItem from="1610143189828" duration="6636000" />
     </task>
     <task id="LOCAL-00001" summary="Fixed nullable fields">
       <created>1609120636853</created>

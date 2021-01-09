@@ -9,6 +9,7 @@ use App\Http\Controllers\HabitController;
 use App\Http\Controllers\HabitFollowUpController;
 use App\Http\Controllers\ApiTestController;
 use App\Http\Controllers\FrequencyController;
+use App\Http\Controllers\BillController;
 
 /*
 |--------------------------------------------------------------------------
@@ -49,6 +50,16 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::patch('/{record}', [FrequencyController::class, 'update']);
         Route::delete('/{record}', [FrequencyController::class, 'destroy']);
     });
+
+    Route::group(['prefix' => 'accounting'], function () {
+        Route::group(['prefix' => 'bills'], function () {
+            Route::get('/', [BillController::class, 'index']);
+            Route::post('/', [BillController::class, 'store']);
+            Route::patch('/{record}', [BillController::class, 'update']);
+            Route::delete('/{record}', [BillController::class, 'destroy']);
+        });
+    });
+
 });
 
 

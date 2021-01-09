@@ -84,4 +84,9 @@ class User extends Authenticatable
     {
         return $this->frequencies()->get();
     }
+
+    public function bills()
+    {
+        return $this->hasMany(Bill::class);
+    }
 }
