@@ -15,7 +15,7 @@ class HabitFollowUpController extends Controller
     {
         return Validator::make($data, [
             'apply_date'    => ['required', 'date'],
-            'story'         => ['string'],
+            'story'         => ['string', 'nullable'],
             'counter'       => ['numeric'],
             'remove'        => ['boolean'],
             'update'        => ['boolean'],
