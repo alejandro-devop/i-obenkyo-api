@@ -31,6 +31,15 @@ Route::group(['prefix' => 'auth'], function () {
 });
 
 Route::group(['middleware' => 'auth:api'], function () {
+    Route::group(['prefix' => 'accounting'], function () {
+        Route::group(['prefix' => 'bills'], function () {
+            Route::get('/', [BillController::class, 'index']);
+            Route::post('/', [BillController::class, 'store']);
+            Route::patch('/{record}', [BillController::class, 'update']);
+            Route::delete('/{record}', [BillController::class, 'destroy']);
+        });
+    });
+    
     Route::group(['prefix' => 'habits'],  function () {
         Route::get('/', [HabitController::class,  'index']);
         Route::get('/daily-follow-up/{dateStr}', [HabitFollowUpController::class, 'dailyFollowUp']);
@@ -50,16 +59,7 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::post('/', [FrequencyController::class, 'store']);
         Route::patch('/{record}', [FrequencyController::class, 'update']);
         Route::delete('/{record}', [FrequencyController::class, 'destroy']);
-    });
-
-    Route::group(['prefix' => 'accounting'], function () {
-        Route::group(['prefix' => 'bills'], function () {
-            Route::get('/', [BillController::class, 'index']);
-            Route::post('/', [BillController::class, 'store']);
-            Route::patch('/{record}', [BillController::class, 'update']);
-            Route::delete('/{record}', [BillController::class, 'destroy']);
-        });
-    });
+    });    
 
 });
 

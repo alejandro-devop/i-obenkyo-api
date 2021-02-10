@@ -103,10 +103,277 @@
                     }
                 ]
             }
+        },
+        "/api/accounting/bills": {
+            "get": {
+                "tags": [
+                    "Accounting",
+                    "Bills"
+                ],
+                "summary": "Lists user bills",
+                "operationId": "App\\Http\\Controllers\\BillController::index",
+                "responses": {
+                    "200": {
+                        "description": "User created bills",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/Bill"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Accounting",
+                    "Bills"
+                ],
+                "summary": "Allows to store a new bill",
+                "operationId": "App\\Http\\Controllers\\BillController::store",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "A title for the bill",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "apply_date",
+                        "in": "query",
+                        "description": "Date: YYYY-MM-DD HH:mm:ss",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "frequency",
+                        "in": "query",
+                        "description": "Id of the frequency applied to the bill",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "value",
+                        "in": "query",
+                        "description": "Value or price for the bill",
+                        "required": true,
+                        "schema": {
+                            "type": "float"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "If the bill was saved",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Bill"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/accounting/bills/{recordId}": {
+            "delete": {
+                "tags": [
+                    "Accounting",
+                    "Bills"
+                ],
+                "summary": "Allows to remove a bill",
+                "operationId": "App\\Http\\Controllers\\BillController::destroy",
+                "responses": {
+                    "204": {
+                        "description": "If the Bill was removed",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Accounting",
+                    "Bills"
+                ],
+                "summary": "Allows to update a selected bill",
+                "operationId": "App\\Http\\Controllers\\BillController::update",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "A title for the bill",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "apply_date",
+                        "in": "query",
+                        "description": "Date: YYYY-MM-DD HH:mm:ss",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "frequency",
+                        "in": "query",
+                        "description": "Id of the frequency applied to the bill",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "value",
+                        "in": "query",
+                        "description": "Value or price for the bill",
+                        "required": true,
+                        "schema": {
+                            "type": "float"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "If the record was updated successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Bill"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
         }
     },
     "components": {
         "schemas": {
+            "Bill": {
+                "properties": {
+                    "id": {
+                        "description": "",
+                        "type": "integer"
+                    },
+                    "apply_date": {
+                        "description": "Date or day of month which the bill apply",
+                        "type": "string",
+                        "default": "YYYY-MM-DD HH:mm:ss"
+                    },
+                    "custom_days": {
+                        "description": "Days for the applied frequency",
+                        "type": "string",
+                        "default": "mon,tue,wed,thu,fri,sat,sun,*"
+                    },
+                    "description": {
+                        "description": "A description for the bill",
+                        "type": "string"
+                    },
+                    "is_open": {
+                        "description": "If the system should keep generating this bill",
+                        "type": "boolean"
+                    },
+                    "frequency": {
+                        "$ref": "#/components/schemas/Frequency"
+                    },
+                    "name": {
+                        "description": "A simple title for the bill",
+                        "type": "string"
+                    },
+                    "value": {
+                        "description": "Value/price, for the bill",
+                        "type": "number",
+                        "default": "0"
+                    },
+                    "created_at": {
+                        "description": "Created date",
+                        "type": "string",
+                        "default": "YYYY-MM-DD HH:mm:ss"
+                    },
+                    "updated_at": {
+                        "description": "Updated date",
+                        "type": "string",
+                        "default": "YYYY-MM-DD HH:mm:ss"
+                    }
+                },
+                "type": "object"
+            },
+            "Frequency": {
+                "properties": {
+                    "id": {
+                        "description": "",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "days": {
+                        "description": "Amount of days for the frequency",
+                        "type": "integer"
+                    },
+                    "is_daily": {
+                        "description": "If apply daily",
+                        "type": "boolean"
+                    },
+                    "is_weekly": {
+                        "description": "If apply weekly",
+                        "type": "boolean"
+                    },
+                    "is_monthly": {
+                        "description": "If apply monthly",
+                        "type": "boolean"
+                    },
+                    "is_every_year": {
+                        "description": "If apply every year",
+                        "type": "boolean"
+                    },
+                    "created_at": {
+                        "description": "Created date",
+                        "type": "string",
+                        "default": "YYYY-MM-DD HH:mm:ss"
+                    },
+                    "updated_at": {
+                        "description": "Updated date",
+                        "type": "string",
+                        "default": "YYYY-MM-DD HH:mm:ss"
+                    }
+                },
+                "type": "object"
+            },
             "User": {
                 "properties": {
                     "id": {

@@ -8,8 +8,33 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
+/**
+ * Bills management
+ * @version 1.0.0
+ * @author Alejandro Quiroz <alejandro.devop@gmail.com>
+ */
 class BillController extends Controller
 {
+    /**
+     * @OA\Get(
+     *      path="/api/accounting/bills",
+     *      summary="Lists user bills",
+     *      security={{"bearer": {}}},
+     *      tags={"Accounting", "Bills"},
+     *      @OA\Response(
+     *          response=200,
+     *          description="User created bills",
+     *          content={
+     *              @OA\MediaType(
+     *                  mediaType="application/json",
+     *                  @OA\Schema(
+     *                      @OA\Items(ref="#/components/schemas/Bill"),
+     *                  )
+     *              )
+     *          }
+     *      ),
+     * )
+     */
     public function index(Request $request)
     {
         $user = $request->user()?: new User();
@@ -31,6 +56,62 @@ class BillController extends Controller
         ]);
     }
 
+    /**
+     * @OA\Post(
+     *      path="/api/accounting/bills",
+     *      summary="Allows to store a new bill",
+     *      tags={"Accounting", "Bills"},
+     *      security={{"bearer": {}}},
+     *      @OA\Parameter(
+     *           name="name",
+     *           in="query",
+     *           description="A title for the bill",
+     *           required=true,
+     *           @OA\Schema(
+     *                  type="string",
+     *           ),
+     *      ),
+     *      @OA\Parameter(
+     *           name="apply_date",
+     *           in="query",
+     *           description="Date: YYYY-MM-DD HH:mm:ss",
+     *           required=true,
+     *           @OA\Schema(
+     *                  type="string",
+     *           ),
+     *      ),
+     *      @OA\Parameter(
+     *           name="frequency",
+     *           in="query",
+     *           description="Id of the frequency applied to the bill",
+     *           required=true,
+     *           @OA\Schema(
+     *                  type="string",
+     *           ),
+     *      ),
+     *      @OA\Parameter(
+     *           name="value",
+     *           in="query",
+     *           description="Value or price for the bill",
+     *           required=true,
+     *           @OA\Schema(
+     *                  type="float",
+     *           ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="If the bill was saved",
+     *          content={
+     *              @OA\MediaType(
+     *                  mediaType="application/json",
+     *                  @OA\Schema(
+     *                      ref="#/components/schemas/Bill"
+     *                  )
+     *              )
+     *          }
+     *      ),
+     * )
+     */
     public function store(Request $request)
     {
         $user = $request->user()?: new User;
@@ -43,6 +124,62 @@ class BillController extends Controller
         return response()->json($bill);
     }
 
+    /**
+     * @OA\Patch(
+     *      path="/api/accounting/bills/{recordId}",
+     *      summary="Allows to update a selected bill",
+     *      tags={"Accounting", "Bills"},
+     *      security={{"bearer": {}}},
+     *      @OA\Parameter(
+     *           name="name",
+     *           in="query",
+     *           description="A title for the bill",
+     *           required=true,
+     *           @OA\Schema(
+     *                  type="string",
+     *           ),
+     *      ),
+     *      @OA\Parameter(
+     *           name="apply_date",
+     *           in="query",
+     *           description="Date: YYYY-MM-DD HH:mm:ss",
+     *           required=true,
+     *           @OA\Schema(
+     *                  type="string",
+     *           ),
+     *      ),
+     *      @OA\Parameter(
+     *           name="frequency",
+     *           in="query",
+     *           description="Id of the frequency applied to the bill",
+     *           required=true,
+     *           @OA\Schema(
+     *                  type="string",
+     *           ),
+     *      ),
+     *      @OA\Parameter(
+     *           name="value",
+     *           in="query",
+     *           description="Value or price for the bill",
+     *           required=true,
+     *           @OA\Schema(
+     *                  type="float",
+     *           ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="If the record was updated successfully",
+     *          content={
+     *              @OA\MediaType(
+     *                  mediaType="application/json",
+     *                  @OA\Schema(
+     *                      ref="#/components/schemas/Bill"
+     *                  )
+     *              )
+     *          }
+     *      ),
+     * )
+     */
     public function update(Request $request, Bill $record)
     {
         if (($notOwned = $this->checkOwner($request, $record)) !== false) {
@@ -57,6 +194,24 @@ class BillController extends Controller
         return response()->json($record, 200);
     }
 
+    /**
+     * @OA\Delete(
+     *      path="/api/accounting/bills/{recordId}",
+     *      summary="Allows to remove a bill",
+     *      tags={"Accounting", "Bills"},
+     *      @OA\Response(
+     *          response=204,
+     *          description="If the Bill was removed",
+     *          content={
+     *              @OA\MediaType(
+     *                  mediaType="application/json",
+     *                  @OA\Schema(
+     *                  )
+     *              )
+     *          }
+     *      ),
+     * )
+     */
     public function destroy(Request $request, Bill $record)
     {
         if (($notOwned = $this->checkOwner($request, $record)) !== false) {
