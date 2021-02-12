@@ -199,6 +199,7 @@ class BillController extends Controller
      *      path="/api/accounting/bills/{recordId}",
      *      summary="Allows to remove a bill",
      *      tags={"Accounting", "Bills"},
+     *      security={{"bearer": {}}},
      *      @OA\Response(
      *          response=204,
      *          description="If the Bill was removed",

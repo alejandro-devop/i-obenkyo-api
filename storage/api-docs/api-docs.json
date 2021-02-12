@@ -213,7 +213,12 @@
                             }
                         }
                     }
-                }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
             },
             "patch": {
                 "tags": [
@@ -267,6 +272,140 @@
                             "application/json": {
                                 "schema": {
                                     "$ref": "#/components/schemas/Bill"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/habits/categories": {
+            "get": {
+                "tags": [
+                    "Habits"
+                ],
+                "summary": "Allows to list habit categories",
+                "operationId": "App\\Http\\Controllers\\HabitCategoryController::index",
+                "responses": {
+                    "200": {
+                        "description": "Categories list",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/HabitCategory"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Habits"
+                ],
+                "summary": "Allows to save a new habit category",
+                "operationId": "App\\Http\\Controllers\\HabitCategoryController::store",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name assigned to the category",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "icon",
+                        "in": "query",
+                        "description": "Icon to be assinged to the category, see: https://fontawesome.com/icons?d=gallery",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Saved category",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HabitCategory"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "delete": {
+                "tags": [
+                    "Habits"
+                ],
+                "summary": "Allows to remove a category",
+                "operationId": "App\\Http\\Controllers\\HabitCategoryController::destroy",
+                "responses": {
+                    "204": {
+                        "description": "If the category was removed successfuly",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "patch": {
+                "tags": [
+                    "Habits"
+                ],
+                "summary": "Allows to update a habit category",
+                "operationId": "App\\Http\\Controllers\\HabitCategoryController::update",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name assigned to the category",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "icon",
+                        "in": "query",
+                        "description": "Icon to be assinged to the category, see: https://fontawesome.com/icons?d=gallery",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "If the category was updated successfuly",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HabitCategory"
                                 }
                             }
                         }
@@ -360,6 +499,33 @@
                     "is_every_year": {
                         "description": "If apply every year",
                         "type": "boolean"
+                    },
+                    "created_at": {
+                        "description": "Created date",
+                        "type": "string",
+                        "default": "YYYY-MM-DD HH:mm:ss"
+                    },
+                    "updated_at": {
+                        "description": "Updated date",
+                        "type": "string",
+                        "default": "YYYY-MM-DD HH:mm:ss"
+                    }
+                },
+                "type": "object"
+            },
+            "HabitCategory": {
+                "properties": {
+                    "id": {
+                        "description": "",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "icon": {
+                        "description": "",
+                        "type": "string"
                     },
                     "created_at": {
                         "description": "Created date",
