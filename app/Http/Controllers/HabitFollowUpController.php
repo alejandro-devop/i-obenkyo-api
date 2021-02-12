@@ -28,6 +28,7 @@ class HabitFollowUpController extends Controller
      *      path="/api/habits/follow-up/{habitId}",
      *      summary="Lists all follow ups on a habit",
      *      tags={"Habits follow up"},
+     *      security={{"bearer": {}}},
      *      @OA\Response(
      *          response=200,
      *          description="List of follow ups",

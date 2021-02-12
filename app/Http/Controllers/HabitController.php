@@ -16,6 +16,7 @@ class HabitController extends Controller
      *      path="/api/habits",
      *      summary="List of habits",
      *      tags={"Habits"},
+     *      security={{"bearer": {}}},
      *      @OA\Response(
      *          response=200,
      *          description="List of habits",
@@ -59,6 +60,7 @@ class HabitController extends Controller
      *      path="/api/habits",
      *      summary="Allows to store a new habit",
      *      tags={"Habits"},
+     *      security={{"bearer": {}}},
      *      @OA\Parameter(
      *           name="title",
      *           in="query",
@@ -176,6 +178,7 @@ class HabitController extends Controller
      *      path="/api/habits",
      *      summary="Allows to update a habit",
      *      tags={"Habits"},
+     *      security={{"bearer": {}}},
      *      @OA\Parameter(
      *           name="title",
      *           in="query",
@@ -292,6 +295,7 @@ class HabitController extends Controller
      *      path="/api/habits",
      *      summary="Allows to remove a habit",
      *      tags={"Habits"},
+     *      security={{"bearer": {}}},
      *      @OA\Response(
      *          response=204,
      *          description="",

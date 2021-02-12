@@ -27,6 +27,50 @@ class RegisterController extends Controller
     /**
      * @param Request $request
      * @return JsonResponse
+     * @OA\Post(
+     *      path="/api/register",
+     *      summary="Allows to register a user",
+     *      tags={"Register"},
+     *      @OA\Parameter(
+     *           name="name",
+     *           in="query",
+     *           description="User personal name",
+     *           required=true,
+     *           @OA\Schema(
+     *                  type="string",
+     *           ),
+     *      ),
+     *      @OA\Parameter(
+     *           name="email",
+     *           in="query",
+     *           description="User email (user name)",
+     *           required=true,
+     *           @OA\Schema(
+     *                  type="string",
+     *           ),
+     *      ),
+     *      @OA\Parameter(
+     *           name="password",
+     *           in="query",
+     *           required=true,
+     *           description="User account password",
+     *           @OA\Schema(
+     *                  type="string",
+     *           ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="If the user was created",
+     *          content={
+     *              @OA\MediaType(
+     *                  mediaType="application/json",
+     *                  @OA\Schema(
+     *                      ref="#/components/schemas/User"
+     *                  )
+     *              )
+     *          }
+     *      ),
+     * )
      */
     public function create(Request $request)
     {
