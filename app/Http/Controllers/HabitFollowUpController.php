@@ -23,6 +23,25 @@ class HabitFollowUpController extends Controller
         ]);
     }
 
+    /**
+     * @OA\Get(
+     *      path="/api/habits/follow-up/{habitId}",
+     *      summary="Lists all follow ups on a habit",
+     *      tags={"Habits follow up"},
+     *      @OA\Response(
+     *          response=200,
+     *          description="List of follow ups",
+     *          content={
+     *              @OA\MediaType(
+     *                  mediaType="application/json",
+     *                  @OA\Schema(
+     *                      @OA\Items(ref="#/components/schemas/HabitFollowUp")
+     *                  )
+     *              )
+     *          }
+     *      ),
+     * )
+     */
     public function followUpList(Habit $habit)
     {
         $followUps = $habit->getFollowUps();
@@ -54,6 +73,75 @@ class HabitFollowUpController extends Controller
         return response()->json($response);
     }
 
+    /**
+     * @OA\Post(
+     *      path="/api/habits/follow-up/{habitId}",
+     *      summary="Allows to mark a follow up for the given day",
+     *      tags={"Habits follow up"},
+     *      security={{"bearer": {}}},
+     *      @OA\Parameter(
+     *           name="apply_date",
+     *           required=true,
+     *           in="query",
+     *           description="Date to mark the habit as followed (YYYY-MM-DD)",
+     *           @OA\Schema(
+     *                  type="string",
+     *           ),
+     *      ),
+     *      @OA\Parameter(
+     *           name="story",
+     *           in="query",
+     *           description="A short description about the habit",
+     *           @OA\Schema(
+     *                  type="string",
+     *           ),
+     *      ),
+     *      @OA\Parameter(
+     *           name="counter",
+     *           in="query",
+     *           description="A value to mark the times completed an habit",
+     *           @OA\Schema(
+     *                  type="integer",
+     *           ),
+     *      ),
+     *      @OA\Parameter(
+     *           name="remove",
+     *           in="query",
+     *           description="If the follow up should be removed",
+     *           @OA\Schema(
+     *                  type="boolean",
+     *           ),
+     *      ),
+     *      @OA\Parameter(
+     *           name="update",
+     *           in="query",
+     *           description="If the follow up should be updated",
+     *           @OA\Schema(
+     *                  type="boolean",
+     *           ),
+     *      ),
+     *      @OA\Parameter(
+     *           name="accomplished",
+     *           in="query",
+     *           description="If the follow up should be mark as completed",
+     *           @OA\Schema(
+     *                  type="boolean",
+     *           ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="The updated or saved follow up",
+     *          content={
+     *              @OA\MediaType(
+     *                  mediaType="application/json",
+     *                  @OA\Schema(
+     *                      ref="#/components/schemas/HabitFollowUp"
+     *                  )
+     *              )
+     *          }
+     *      ),
+     * )
+     */
     public function followUpMark(Request $request, Habit $habit)
     {
         $validator =  $this->validator($request->all());
@@ -75,6 +163,34 @@ class HabitFollowUpController extends Controller
         }
     }
 
+    /**
+     * @OA\Get(
+     *      path="/api/habits/daily-follow-up/{dateStr}",
+     *      summary="Lists the habits for a given day",
+     *      tags={"Habits follow up"},
+     *      security={{"bearer": {}}},
+     *      @OA\Parameter(
+     *           name="dateStr",
+     *           in="path",
+     *           description="The day to search for follow ups",
+     *           @OA\Schema(
+     *                  type="string",
+     *           ),
+     *      ),
+     *      @OA\Response(
+     *          response=200,
+     *          description="Follow ups for given name",
+     *          content={
+     *              @OA\MediaType(
+     *                  mediaType="application/json",
+     *                  @OA\Schema(
+     *                      @OA\Items(ref="#/components/schemas/HabitFollowUp")
+     *                  )
+     *              )
+     *          }
+     *      ),
+     * )
+     */
     public function dailyFollowUp(Request $request, $dateStr)
     {
         $date = Carbon::parse($dateStr);
@@ -90,6 +206,9 @@ class HabitFollowUpController extends Controller
         return response()->json($followUps);
     }
 
+    /**
+     * Function to remove a follow up, it discounts from the user streak.
+     */
     private function removeFollowUp (Habit $habit, HabitFollowUp $habitFollowUp)
     {
         if ($habitFollowUp->accomplished) {
@@ -101,12 +220,18 @@ class HabitFollowUpController extends Controller
         return response()->json(['removed' => true], 201);
     }
 
+    /**
+     * Function to encrease a habit streak counter
+     */
     private function increaseHabitCounter (Habit &$habit) {
         $counter = $habit->streak_count + 1;
         $habit->streak_count = $counter;
         $habit->max_streak = $counter > $habit->max_streak? $counter : $habit->max_streak;
     }
 
+    /**
+     * Function to create a new follow up, it prepares everything for the follow up
+     */
     private function createFollowUp(Habit $habit, $fields)
     {
         $isAccomplished = isset($fields['accomplished']) && $fields['accomplished'] === true;
@@ -125,6 +250,9 @@ class HabitFollowUpController extends Controller
         return response()->json($savedFollowUp);
     }
 
+    /**
+     * Function to update a given follow up.
+     */
     private function updateFollowUp(Habit $habit, HabitFollowUp $habitFollowUp, $fields)
     {
         $oldCounter = $habitFollowUp->counter;

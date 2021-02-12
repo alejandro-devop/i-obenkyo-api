@@ -669,6 +669,142 @@
                     }
                 }
             }
+        },
+        "/api/habits/follow-up/{habitId}": {
+            "get": {
+                "tags": [
+                    "Habits follow up"
+                ],
+                "summary": "Lists all follow ups on a habit",
+                "operationId": "App\\Http\\Controllers\\HabitFollowUpController::followUpList",
+                "responses": {
+                    "200": {
+                        "description": "List of follow ups",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/HabitFollowUp"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Habits follow up"
+                ],
+                "summary": "Allows to mark a follow up for the given day",
+                "operationId": "App\\Http\\Controllers\\HabitFollowUpController::followUpMark",
+                "parameters": [
+                    {
+                        "name": "apply_date",
+                        "in": "query",
+                        "description": "Date to mark the habit as followed (YYYY-MM-DD)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "story",
+                        "in": "query",
+                        "description": "A short description about the habit",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "counter",
+                        "in": "query",
+                        "description": "A value to mark the times completed an habit",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "remove",
+                        "in": "query",
+                        "description": "If the follow up should be removed",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "update",
+                        "in": "query",
+                        "description": "If the follow up should be updated",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "accomplished",
+                        "in": "query",
+                        "description": "If the follow up should be mark as completed",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The updated or saved follow up",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/HabitFollowUp"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/habits/daily-follow-up/{dateStr}": {
+            "get": {
+                "tags": [
+                    "Habits follow up"
+                ],
+                "summary": "Lists the habits for a given day",
+                "operationId": "App\\Http\\Controllers\\HabitFollowUpController::dailyFollowUp",
+                "parameters": [
+                    {
+                        "name": "dateStr",
+                        "in": "path",
+                        "description": "The day to search for follow ups",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Follow ups for given name",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/HabitFollowUp"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -873,9 +1009,6 @@
                         "description": "",
                         "type": "integer"
                     },
-                    "habit": {
-                        "$ref": "#/components/schemas/Habit"
-                    },
                     "apply_date": {
                         "description": "",
                         "type": "string",
@@ -900,6 +1033,19 @@
                     "is_counter": {
                         "description": "If the follow up is completed by counting",
                         "type": "boolean"
+                    },
+                    "habit": {
+                        "$ref": "#/components/schemas/Habit"
+                    },
+                    "created_at": {
+                        "description": "Created date",
+                        "type": "string",
+                        "default": "YYYY-MM-DD HH:mm:ss"
+                    },
+                    "updated_at": {
+                        "description": "Updated date",
+                        "type": "string",
+                        "default": "YYYY-MM-DD HH:mm:ss"
                     }
                 },
                 "type": "object"
