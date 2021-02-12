@@ -1082,6 +1082,142 @@
                     }
                 }
             }
+        },
+        "/api/tasks/groups": {
+            "get": {
+                "tags": [
+                    "Task manager"
+                ],
+                "summary": "List all user tasks groups",
+                "description": "This does not return the tasks",
+                "operationId": "App\\Http\\Controllers\\TaskGroupsController::index",
+                "responses": {
+                    "200": {
+                        "description": "List of user task groups",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/TaskGroup"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Task manager"
+                ],
+                "summary": "Allows to store a new group",
+                "operationId": "App\\Http\\Controllers\\TaskGroupsController::store",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name for the task",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "Description for the task group",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Stored group",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TaskGroup"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/tasks/groups/{recordId}": {
+            "delete": {
+                "tags": [
+                    "Task manager"
+                ],
+                "summary": "Removes a group from the database",
+                "operationId": "App\\Http\\Controllers\\TaskGroupsController::destroy",
+                "responses": {
+                    "204": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Task manager"
+                ],
+                "summary": "Update a group task",
+                "operationId": "App\\Http\\Controllers\\TaskGroupsController::update",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Name for the task",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "Description for the task group",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Updated task group",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/TaskGroup"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
         }
     },
     "components": {
@@ -1313,6 +1449,81 @@
                     },
                     "habit": {
                         "$ref": "#/components/schemas/Habit"
+                    },
+                    "created_at": {
+                        "description": "Created date",
+                        "type": "string",
+                        "default": "YYYY-MM-DD HH:mm:ss"
+                    },
+                    "updated_at": {
+                        "description": "Updated date",
+                        "type": "string",
+                        "default": "YYYY-MM-DD HH:mm:ss"
+                    }
+                },
+                "type": "object"
+            },
+            "Task": {
+                "properties": {
+                    "id": {
+                        "description": "",
+                        "type": "integer"
+                    },
+                    "text": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "is_done": {
+                        "description": "",
+                        "type": "boolean"
+                    },
+                    "apply_date": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "is_all_day": {
+                        "description": "",
+                        "type": "boolean"
+                    },
+                    "group": {
+                        "$ref": "#/components/schemas/TaskGroup"
+                    },
+                    "created_at": {
+                        "description": "Created date",
+                        "type": "string",
+                        "default": "YYYY-MM-DD HH:mm:ss"
+                    },
+                    "updated_at": {
+                        "description": "Updated date",
+                        "type": "string",
+                        "default": "YYYY-MM-DD HH:mm:ss"
+                    }
+                },
+                "type": "object"
+            },
+            "TaskGroup": {
+                "properties": {
+                    "id": {
+                        "description": "",
+                        "type": "integer"
+                    },
+                    "name": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "user": {
+                        "$ref": "#/components/schemas/User"
+                    },
+                    "tasks": {
+                        "description": "",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/Task"
+                        }
                     },
                     "created_at": {
                         "description": "Created date",

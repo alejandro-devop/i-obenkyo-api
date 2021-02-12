@@ -10,6 +10,7 @@ use App\Http\Controllers\HabitFollowUpController;
 use App\Http\Controllers\ApiTestController;
 use App\Http\Controllers\FrequencyController;
 use App\Http\Controllers\BillController;
+use App\Http\Controllers\TaskGroupsController;
 
 /*
 |--------------------------------------------------------------------------
@@ -39,7 +40,7 @@ Route::group(['middleware' => 'auth:api'], function () {
             Route::delete('/{record}', [BillController::class, 'destroy']);
         });
     });
-    
+
     Route::group(['prefix' => 'habits'],  function () {
         Route::get('/', [HabitController::class,  'index']);
         Route::get('/daily-follow-up/{dateStr}', [HabitFollowUpController::class, 'dailyFollowUp']);
@@ -59,7 +60,14 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::post('/', [FrequencyController::class, 'store']);
         Route::patch('/{record}', [FrequencyController::class, 'update']);
         Route::delete('/{record}', [FrequencyController::class, 'destroy']);
-    });    
+    });
+
+    Route::group(['prefix' => 'tasks/groups'], function () {
+        Route::get('/', [TaskGroupsController::class, 'index']);
+        Route::post('/', [TaskGroupsController::class, 'store']);
+        Route::patch('/{record}', [TaskGroupsController::class, 'update']);
+        Route::delete('/{record}', [TaskGroupsController::class, 'destroy']);
+    });
 
 });
 

@@ -20,9 +20,9 @@ class CreateTasksTable extends Migration
             $table->boolean('is_done')->nullable();
             $table->dateTime('apply_date')->nullable();
             $table->boolean('is_all_day')->nullable();
-            $table->foreignId('group_id')
+            $table->foreignId('task_group_id')
                 ->references('id')
-                ->on('users');
+                ->on('task_groups');
             $table->timestamps();
         });
     }
