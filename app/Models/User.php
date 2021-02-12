@@ -89,4 +89,14 @@ class User extends Authenticatable
     {
         return $this->hasMany(Bill::class);
     }
+
+    public function taskGroups ()
+    {
+        return $this->hasMany(TaskGroup::class);
+    }
+
+    public function getTaskGroups()
+    {
+        return $this->taskGroups()->with('tasks')->get();
+    }
 }
