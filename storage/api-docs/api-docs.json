@@ -417,6 +417,258 @@
                     }
                 ]
             }
+        },
+        "/api/habits": {
+            "get": {
+                "tags": [
+                    "Habits"
+                ],
+                "summary": "List of habits",
+                "operationId": "App\\Http\\Controllers\\HabitController::index",
+                "responses": {
+                    "200": {
+                        "description": "List of habits",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/Habit"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Habits"
+                ],
+                "summary": "Allows to store a new habit",
+                "operationId": "App\\Http\\Controllers\\HabitController::store",
+                "parameters": [
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "A title to identify the habit",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "Additional information for the habit",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "is_counter",
+                        "in": "query",
+                        "description": "If the habit is complete by counting",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "counter_goal",
+                        "in": "query",
+                        "description": "Amount required to complete the habit",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "start",
+                        "in": "query",
+                        "description": "Date when the habit should be start getting tracked (YYYY-MM-DD HH:mm:ss)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "should_keep",
+                        "in": "query",
+                        "description": "If the habit its something that benefits the user",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "should_avoid",
+                        "in": "query",
+                        "description": "If the habit its something that harms the user",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "goal_date",
+                        "in": "query",
+                        "description": "Date when the habit should be completed (YYYY-MM-DD HH:mm:ss)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "streak_goal",
+                        "in": "query",
+                        "description": "What is the goal for the habit",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The stored category",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Habit"
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Habits"
+                ],
+                "summary": "Allows to remove a habit",
+                "operationId": "App\\Http\\Controllers\\HabitController::destroy",
+                "responses": {
+                    "204": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Habits"
+                ],
+                "summary": "Allows to update a habit",
+                "operationId": "App\\Http\\Controllers\\HabitController::update",
+                "parameters": [
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "A title to identify the habit",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "Additional information for the habit",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "is_counter",
+                        "in": "query",
+                        "description": "If the habit is complete by counting",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "counter_goal",
+                        "in": "query",
+                        "description": "Amount required to complete the habit",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "start",
+                        "in": "query",
+                        "description": "Date when the habit should be start getting tracked (YYYY-MM-DD HH:mm:ss)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "should_keep",
+                        "in": "query",
+                        "description": "If the habit its something that benefits the user",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "should_avoid",
+                        "in": "query",
+                        "description": "If the habit its something that harms the user",
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    },
+                    {
+                        "name": "goal_date",
+                        "in": "query",
+                        "description": "Date when the habit should be completed (YYYY-MM-DD HH:mm:ss)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "streak_goal",
+                        "in": "query",
+                        "description": "What is the goal for the habit",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "description": "",
+                        "required": true,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "The stored category",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Habit"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -513,6 +765,81 @@
                 },
                 "type": "object"
             },
+            "Habit": {
+                "properties": {
+                    "id": {
+                        "description": "",
+                        "type": "integer"
+                    },
+                    "title": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "description": {
+                        "description": "",
+                        "type": "string"
+                    },
+                    "start": {
+                        "description": "Date where the habit should start",
+                        "type": "string",
+                        "default": "YYYY-MM-DD HH:mm:ss"
+                    },
+                    "goal_date": {
+                        "description": "",
+                        "type": "string",
+                        "default": "YYYY-MM-DD HH:mm:ss"
+                    },
+                    "streak_count": {
+                        "description": "Current streak count",
+                        "type": "integer"
+                    },
+                    "streak_goal": {
+                        "description": "Amount to be used as goal",
+                        "type": "integer"
+                    },
+                    "category": {
+                        "$ref": "#/components/schemas/HabitCategory"
+                    },
+                    "is_counter": {
+                        "description": "If the habit should be accomplished by completing an amount of times",
+                        "type": "boolean"
+                    },
+                    "counter_goal": {
+                        "description": "Amount of times to complete the goal a single day",
+                        "type": "integer"
+                    },
+                    "max_streak": {
+                        "description": "The user max streak in a row",
+                        "type": "integer"
+                    },
+                    "should_keep": {
+                        "description": "If the habit its something that benefits the user",
+                        "type": "boolean"
+                    },
+                    "should_avoid": {
+                        "description": "If the habit its something that demages the user",
+                        "type": "boolean"
+                    },
+                    "followUps": {
+                        "description": "",
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/HabitFollowUp"
+                        }
+                    },
+                    "created_at": {
+                        "description": "Created date",
+                        "type": "string",
+                        "default": "YYYY-MM-DD HH:mm:ss"
+                    },
+                    "updated_at": {
+                        "description": "Updated date",
+                        "type": "string",
+                        "default": "YYYY-MM-DD HH:mm:ss"
+                    }
+                },
+                "type": "object"
+            },
             "HabitCategory": {
                 "properties": {
                     "id": {
@@ -536,6 +863,43 @@
                         "description": "Updated date",
                         "type": "string",
                         "default": "YYYY-MM-DD HH:mm:ss"
+                    }
+                },
+                "type": "object"
+            },
+            "HabitFollowUp": {
+                "properties": {
+                    "id": {
+                        "description": "",
+                        "type": "integer"
+                    },
+                    "habit": {
+                        "$ref": "#/components/schemas/Habit"
+                    },
+                    "apply_date": {
+                        "description": "",
+                        "type": "string",
+                        "default": "YYYY-MM-DD HH:mm:ss"
+                    },
+                    "story": {
+                        "description": "A description of what happened while accomplishing this habit",
+                        "type": "string"
+                    },
+                    "accomplished": {
+                        "description": "",
+                        "type": "boolean"
+                    },
+                    "counter": {
+                        "description": "Times completed by the user",
+                        "type": "integer"
+                    },
+                    "counter_goal": {
+                        "description": "Times to mark the goal as accomplished",
+                        "type": "integer"
+                    },
+                    "is_counter": {
+                        "description": "If the follow up is completed by counting",
+                        "type": "boolean"
                     }
                 },
                 "type": "object"
