@@ -10,6 +10,7 @@ use App\Http\Controllers\HabitFollowUpController;
 use App\Http\Controllers\ApiTestController;
 use App\Http\Controllers\FrequencyController;
 use App\Http\Controllers\BillController;
+use App\Http\Controllers\TaskController;
 use App\Http\Controllers\TaskGroupsController;
 
 /*
@@ -62,11 +63,15 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::delete('/{record}', [FrequencyController::class, 'destroy']);
     });
 
-    Route::group(['prefix' => 'tasks/groups'], function () {
-        Route::get('/', [TaskGroupsController::class, 'index']);
-        Route::post('/', [TaskGroupsController::class, 'store']);
-        Route::patch('/{record}', [TaskGroupsController::class, 'update']);
-        Route::delete('/{record}', [TaskGroupsController::class, 'destroy']);
+    Route::group(['prefix' => 'tasks'], function () {
+        Route::get('/', [TaskController::class, 'index']);
+        Route::post('/', [TaskController::class, 'store']);
+        Route::patch('/{record}', [TaskController::class, 'update']);
+        Route::delete('/{record}', [TaskController::class, 'destroy']);
+        Route::get('/groups', [TaskGroupsController::class, 'index']);
+        Route::post('/groups', [TaskGroupsController::class, 'store']);
+        Route::patch('/groups/{record}', [TaskGroupsController::class, 'update']);
+        Route::delete('/groups/{record}', [TaskGroupsController::class, 'destroy']);
     });
 
 });

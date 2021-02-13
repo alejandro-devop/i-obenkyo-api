@@ -1083,6 +1083,177 @@
                 }
             }
         },
+        "/api/tasks": {
+            "get": {
+                "tags": [
+                    "Task manager"
+                ],
+                "summary": "List all user tasks grouped",
+                "operationId": "App\\Http\\Controllers\\TaskController::index",
+                "responses": {
+                    "200": {
+                        "description": "List of user task grouped",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "items": {
+                                        "$ref": "#/components/schemas/TaskGroup"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            },
+            "post": {
+                "tags": [
+                    "Task manager"
+                ],
+                "summary": "Allows to store a new task",
+                "operationId": "App\\Http\\Controllers\\TaskController::store",
+                "parameters": [
+                    {
+                        "name": "text",
+                        "in": "query",
+                        "description": "The task you want to be reminded",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "is_all_day",
+                        "in": "query",
+                        "description": "If the task iss tomething to be executed all day. ",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "group",
+                        "in": "query",
+                        "description": "",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Saved task",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Task"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/tasks/{recordId}": {
+            "delete": {
+                "tags": [
+                    "Task manager"
+                ],
+                "summary": "Removes a group from the database",
+                "operationId": "App\\Http\\Controllers\\TaskController::destroy",
+                "responses": {
+                    "204": {
+                        "description": "",
+                        "content": {
+                            "application/json": {
+                                "schema": {}
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "Task manager"
+                ],
+                "summary": "Allows to update a new task",
+                "operationId": "App\\Http\\Controllers\\TaskController::update",
+                "parameters": [
+                    {
+                        "name": "text",
+                        "in": "query",
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "description",
+                        "in": "query",
+                        "description": "",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "is_all_day",
+                        "in": "query",
+                        "description": "If the task iss tomething to be executed all day. ",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "is_done",
+                        "in": "query",
+                        "description": "If the task is done",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "group",
+                        "in": "query",
+                        "description": "",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Saved task",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Task"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/api/tasks/groups": {
             "get": {
                 "tags": [

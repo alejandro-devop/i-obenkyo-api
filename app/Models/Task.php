@@ -15,10 +15,15 @@ use Illuminate\Database\Eloquent\Model;
 class Task extends Model
 {
     use HasFactory;
-    protected $fillable = ['text', 'description', 'apply_date', 'is_done', 'is_all_day'];
+    protected $fillable = ['text', 'description', 'apply_date', 'is_done', 'is_all_day', 'task_group_id'];
 
     public function group()
     {
         return $this->belongsTo(TaskGroup::class);
+    }
+
+    public function getGroup()
+    {
+        return $this->group()->get();
     }
 }
