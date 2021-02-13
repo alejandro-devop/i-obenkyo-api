@@ -105,6 +105,7 @@ class TaskController extends Controller
         $fields = $validator->validate();
         $group = TaskGroup::findOrFail($fields['group']);
         $fields['task_group_id'] = $fields['group'];
+        $fields['is_done'] = false;
         $saved = $group->tasks()->save(new Task($fields));
         return response()->json($saved);
     }
