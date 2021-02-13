@@ -68,6 +68,7 @@ Route::group(['middleware' => 'auth:api'], function () {
         Route::post('/', [TaskController::class, 'store']);
         Route::patch('/{record}', [TaskController::class, 'update']);
         Route::delete('/{record}', [TaskController::class, 'destroy']);
+        Route::get('/change/{record}', [TaskController::class, 'changeState']);
         Route::get('/groups', [TaskGroupsController::class, 'index']);
         Route::post('/groups', [TaskGroupsController::class, 'store']);
         Route::patch('/groups/{record}', [TaskGroupsController::class, 'update']);

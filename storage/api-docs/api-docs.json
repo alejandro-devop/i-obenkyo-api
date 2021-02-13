@@ -1254,6 +1254,32 @@
                 ]
             }
         },
+        "/api/tasks/change/{recordId}": {
+            "get": {
+                "tags": [
+                    "Task manager"
+                ],
+                "summary": "Allows to update the task is_done state",
+                "operationId": "App\\Http\\Controllers\\TaskController::changeState",
+                "responses": {
+                    "200": {
+                        "description": "Updated task",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Task"
+                                }
+                            }
+                        }
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
         "/api/tasks/groups": {
             "get": {
                 "tags": [

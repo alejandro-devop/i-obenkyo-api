@@ -206,4 +206,34 @@ class TaskController extends Controller
         $record->delete();
         return response()->json(null, 204);
     }
+    /**
+     * @OA\Get(
+     *      path="/api/tasks/change/{recordId}",
+     *      summary="Allows to update the task is_done state",
+     *      security={{"bearer": {}}},
+     *      tags={"Task manager"},
+     *      @OA\Response(
+     *          response=200,
+     *          description="Updated task",
+     *          content={
+     *              @OA\MediaType(
+     *                  mediaType="application/json",
+     *                  @OA\Schema(
+     *                      ref="#/components/schemas/Task"
+     *                  )
+     *              )
+     *          }
+     *      ),
+     * )
+     */
+    public function changeState(Request $request, Task $record)
+    {
+        $group = TaskGroup::findOrFail($record->task_group_id);
+        if (($notOwned = $this->checkOwner($request, $group)) !== false) {
+            return $notOwned;
+        }
+        $record->is_done = !$record->is_done;
+        $record->update();
+        return response()->json($record);
+    }
 }
