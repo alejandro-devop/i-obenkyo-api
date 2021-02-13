@@ -207,6 +207,23 @@ class HabitFollowUpController extends Controller
         return response()->json($followUps);
     }
 
+    public function rangeFollowUp(Request $request, $dateStart, $dateEnd)
+    {
+        $from = Carbon::parse($dateStart);
+        $to = Carbon::parse($dateEnd);
+        $user = $request->user()?: new User;
+        $followUps = HabitFollowUp::whereRaw(
+            "(apply_date >= ? AND apply_date <= ?)",
+            [$from->format('Y-m-d'), $to->format('Y-m-d')]
+        )
+            ->with('habit')
+            ->whereHas('habit', function ($q) use($user) {
+                $q->where('user_id', $user->id);
+            })
+            ->get();
+        return response()->json($followUps);
+    }
+
     /**
      * Function to remove a follow up, it discounts from the user streak.
      */
