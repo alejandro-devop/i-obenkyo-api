@@ -208,7 +208,7 @@ class TaskController extends Controller
         return response()->json(null, 204);
     }
     /**
-     * @OA\Get(
+     * @OA\Post(
      *      path="/api/tasks/change/{recordId}",
      *      summary="Allows to update the task is_done state",
      *      security={{"bearer": {}}},
@@ -233,7 +233,7 @@ class TaskController extends Controller
         if (($notOwned = $this->checkOwner($request, $group)) !== false) {
             return $notOwned;
         }
-        $record->is_done = !$record->is_done;
+        $record->is_done = $request->get('state');
         $record->update();
         return response()->json($record);
     }
