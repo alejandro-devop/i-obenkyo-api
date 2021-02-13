@@ -40,7 +40,7 @@ class TaskController extends Controller
     {
         return Validator::make($data, [
             'text'  => ['required', 'string', 'max:255'],
-            'description' => ['string', 'max:500'],
+            'description' => ['string'],
             'is_all_day' => ['boolean'],
             'apply_date' => ['string'],
             'group' => ['numeric'],
